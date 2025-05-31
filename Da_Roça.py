@@ -1,9 +1,9 @@
 
 # Parâmetros fixos
-VELOCIDADE_MEDIA = 60  # km/h
-TEMPO_ABASTECIMENTO = 0.5  # 30 minutos
-TEMPO_ENTREGA = 0.5  # 30 minutos
-CENTRO = (0, 0)  # Localização do centro de distribuição
+velocidade_media = 60  # km/h
+tempo_abastecimento = 0.5  # 30 minutos
+tempo_entrega = 0.5  # 30 minutos
+centro = (0, 0)  # Localização do centro de distribuição
 
 
 clientes = [
@@ -45,7 +45,8 @@ while motoristas and clientes_nao_atendidos:
     rota.append(cliente_inicial)
     clientes_nao_atendidos.remove(cliente_inicial)
 
-    horas_trabalhadas += TEMPO_ABASTECIMENTO + TEMPO_ENTREGA
+    horas_trabalhadas += tempo_abastecimento + tempo_entrega
+
 
     while horas_trabalhadas <= 8:
         cliente_atual = rota[-1]
@@ -55,10 +56,10 @@ while motoristas and clientes_nao_atendidos:
             break
 
         dist = distancia(cliente_atual, proximo_cliente)
-        tempo_deslocamento = dist / VELOCIDADE_MEDIA
-        tempo_retorno = distancia_para_centro(proximo_cliente) / VELOCIDADE_MEDIA
+        tempo_deslocamento = dist / velocidade_media
+        tempo_retorno = distancia_para_centro(proximo_cliente) / velocidade_media
 
-        tempo_total = tempo_deslocamento + TEMPO_ABASTECIMENTO + TEMPO_ENTREGA + tempo_retorno
+        tempo_total = tempo_deslocamento + tempo_abastecimento + tempo_entrega + tempo_retorno
 
         if horas_trabalhadas + tempo_total > 8:
             break  # não cabe mais cliente
@@ -66,7 +67,7 @@ while motoristas and clientes_nao_atendidos:
         # adiciona cliente à rota
         rota.append(proximo_cliente)
         clientes_nao_atendidos.remove(proximo_cliente)
-        horas_trabalhadas += tempo_deslocamento + TEMPO_ABASTECIMENTO + TEMPO_ENTREGA
+        horas_trabalhadas += tempo_deslocamento + tempo_abastecimento + tempo_entrega
 
         #Se estiver entre 3h e 5h, adiciona 1h
         if 3 <= horas_trabalhadas <= 5:
@@ -75,3 +76,4 @@ while motoristas and clientes_nao_atendidos:
     # Resultado da rota do motorista
     nomes_rota = [c['nome'] for c in rota]
     print(f"{motorista} fará a rota: {nomes_rota}, tempo total estimado: {horas_trabalhadas:.2f}h")
+
